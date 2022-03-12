@@ -4,9 +4,10 @@ const GoodsItem = ({
   description,
   price,
   full_background: fullBackground,
+  addToCart,
 }) => {
   return (
-    <div className="card" id={id}>
+    <div className="card">
       <div className="card-image">
         <img src={fullBackground} alt={name} />
       </div>
@@ -15,7 +16,9 @@ const GoodsItem = ({
         <p>{description}</p>
       </div>
       <div className="card-action">
-        <button className="btn">Купить</button>
+        <button className="btn" onClick={() => addToCart({ id, name, price })}>
+          Купить
+        </button>
         <span className="right" style={{ fontSize: '1.5rem' }}>
           {price} руб.
         </span>
