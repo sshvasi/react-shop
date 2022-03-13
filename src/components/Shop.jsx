@@ -27,6 +27,11 @@ const Shop = () => {
     }
   };
 
+  const removeFromCart = id => {
+    const newOrder = order.filter(item => item.id !== id);
+    setOrder(newOrder);
+  };
+
   const handleCartShow = () => {
     setCartShow(!isCartShow);
   };
@@ -62,7 +67,7 @@ const Shop = () => {
       ) : (
         <GoodsList goods={goods} addToCart={addToCart} />
       )}
-      {isCartShow && <CartList order={order} onCartShow={handleCartShow} />}
+      {isCartShow && <CartList order={order} onCartShow={handleCartShow} removeFromCart={removeFromCart}/>}
     </main>
   );
 };
