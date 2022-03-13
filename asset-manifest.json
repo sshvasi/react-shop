@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/sshvasi/react-shop/static/css/main.cc1074d3.css",
+    "main.js": "/sshvasi/react-shop/static/js/main.27bb27bb.js",
+    "index.html": "/sshvasi/react-shop/index.html",
+    "main.cc1074d3.css.map": "/sshvasi/react-shop/static/css/main.cc1074d3.css.map",
+    "main.27bb27bb.js.map": "/sshvasi/react-shop/static/js/main.27bb27bb.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.cc1074d3.css",
+    "static/js/main.27bb27bb.js"
+  ]
+}
