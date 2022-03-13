@@ -7,36 +7,41 @@ import Preloader from './Preloader';
 const Shop = () => {
   const [goods, setGoods] = useState([]);
   const [order, setOrder] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const addToCart = item => {
     const itemIndex = order.findIndex(element => element.id === item.id);
     if (itemIndex === -1) {
-      console.log('new item');
       const newItem = { ...item, quantity: 1 };
       setOrder([...order, newItem]);
     } else {
-      console.log('old item');
-      const newOrder = order.map((orderItem, index) =>
-        index === itemIndex
+      const newOrder = order.map((orderItem, index) => {
+        return index === itemIndex
           ? { ...orderItem, quantity: orderItem.quantity + 1 }
-          : orderItem
-      );
+          : orderItem;
+      });
       setOrder(newOrder);
     }
   };
 
-  const fetchGoods = () => {
-    setIsLoading(true);
-    fetch(API_URL, {
+  const fetchGoods = async () => {
+    const response = await fetch(API_URL, {
       headers: { Authorization: API_KEY },
-    })
-      .then(response => response.json())
-      .then(result => {
-        if (result.featured) setGoods(result.featured);
-        setIsLoading(false);
-      })
-      .catch(error => console.log(error));
+    });
+    try {
+      if (!response.ok) {
+        throw new Error(
+          `This is an HTTP error: The status is ${response.status}`
+        );
+      }
+      const result = await response.json();
+      setGoods(result.featured);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => fetchGoods(), []);
@@ -44,7 +49,9 @@ const Shop = () => {
   return (
     <main className="container content">
       <Cart quantity={order.length} />
-      {isLoading ? (
+      {error ? (
+        <h3>{error.message}</h3>
+      ) : isLoading ? (
         <Preloader />
       ) : (
         <GoodsList goods={goods} addToCart={addToCart} />
