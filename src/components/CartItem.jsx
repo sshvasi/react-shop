@@ -7,9 +7,9 @@ const CartItem = ({
   increaseQuantity,
   decreaseQuantity,
 }) => {
-  return (
+  return quantity ? (
     <li className="collection-item ">
-      {name} x{quantity}= {price * quantity} руб.
+      {name} x{quantity} = {price * quantity} руб.
       <span className="secondary-content">
         <i
           className="material-icons cart-change"
@@ -31,7 +31,7 @@ const CartItem = ({
         </i>
       </span>
     </li>
-  );
+  ) : null;
 };
 
 export default CartItem;

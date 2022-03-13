@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { API_KEY, API_URL } from '../config';
+import Alert from './Alert';
 import Cart from './Cart';
 import CartList from './CartList';
 import GoodsList from './GoodsList';
@@ -11,6 +12,7 @@ const Shop = () => {
   const [isLoading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isCartShow, setCartShow] = useState(false);
+  const [alertName, setAlertName] = useState('');
 
   const addToCart = item => {
     const itemIndex = order.findIndex(element => element.id === item.id);
@@ -18,13 +20,14 @@ const Shop = () => {
       const newItem = { ...item, quantity: 1 };
       setOrder([...order, newItem]);
     } else {
-      const newOrder = order.map((orderItem, index) => {
+      const newOrder = order.map((orderItem, index) => { 
         return index === itemIndex
           ? { ...orderItem, quantity: orderItem.quantity + 1 }
           : orderItem;
       });
       setOrder(newOrder);
     }
+    setAlertName(item.name);
   };
 
   const removeFromCart = id => {
@@ -52,6 +55,10 @@ const Shop = () => {
 
   const handleCartShow = () => {
     setCartShow(!isCartShow);
+  };
+
+  const closeAlert = () => {
+    setAlertName('');
   };
 
   const fetchGoods = async () => {
@@ -94,6 +101,7 @@ const Shop = () => {
           decreaseQuantity={decreaseQuantity}
         />
       )}
+      {alertName && <Alert name={alertName} closeAlert={closeAlert} />}
     </main>
   );
 };
