@@ -45,6 +45,8 @@ nav {
   background-color: #fff;
   width: 50rem;
   max-width: 95%;
+
+  animation: show 300ms ease-in-out;
 }
 
 .cart-close {
@@ -55,13 +57,44 @@ nav {
   cursor: pointer;
 }
 
+.cart-close:hover {
+  color: #000;
+}
+
 .cart-delete {
   cursor: pointer;
+  margin-left: 2rem;
+}
+
+.cart-delete:hover {
+  color: #000;
+}
+
+.cart-change {
+  cursor: pointer;
+  /* vertical-align: middle; */
+  color: #26a69a;
+}
+
+.cart-change:hover {
+  color: #000;
 }
 
 @media (min-width: 764px) {
   .cart {
     top: 5rem;
     bottom: unset;
+  }
+}
+
+@keyframes show {
+  from {
+    top: 55%;
+    opacity: 0;
+  }
+
+  to {
+    top: 50%;
+    opacity: 1;
   }
 }

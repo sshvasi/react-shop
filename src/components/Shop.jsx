@@ -32,6 +32,24 @@ const Shop = () => {
     setOrder(newOrder);
   };
 
+  const increaseQuantity = id => {
+    const newOrder = order.map(item => {
+      const newQuantity = item.quantity + 1;
+      return item.id === id ? { ...item, quantity: newQuantity } : item;
+    });
+    setOrder(newOrder);
+  };
+
+  const decreaseQuantity = id => {
+    const newOrder = order.map(item => {
+      const newQuantity = item.quantity - 1;
+      return item.id === id
+        ? { ...item, quantity: newQuantity >= 0 ? newQuantity : 0 }
+        : item;
+    });
+    setOrder(newOrder);
+  };
+
   const handleCartShow = () => {
     setCartShow(!isCartShow);
   };
@@ -67,7 +85,15 @@ const Shop = () => {
       ) : (
         <GoodsList goods={goods} addToCart={addToCart} />
       )}
-      {isCartShow && <CartList order={order} onCartShow={handleCartShow} removeFromCart={removeFromCart}/>}
+      {isCartShow && (
+        <CartList
+          order={order}
+          onCartShow={handleCartShow}
+          removeFromCart={removeFromCart}
+          increaseQuantity={increaseQuantity}
+          decreaseQuantity={decreaseQuantity}
+        />
+      )}
     </main>
   );
 };

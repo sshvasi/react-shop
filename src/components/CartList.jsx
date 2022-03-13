@@ -1,6 +1,12 @@
 import CartItem from './CartItem';
 
-const CartList = ({ order = [], removeFromCart, onCartShow }) => {
+const CartList = ({
+  order = [],
+  removeFromCart,
+  onCartShow,
+  increaseQuantity,
+  decreaseQuantity,
+}) => {
   const totalPrice = order.reduce((sum, el) => {
     return sum + el.price * el.quantity;
   }, 0);
@@ -10,7 +16,13 @@ const CartList = ({ order = [], removeFromCart, onCartShow }) => {
       <li className="collection-item active">Корзина</li>
       {order.length ? (
         order.map(item => (
-          <CartItem key={item.id} {...item} removeFromCart={removeFromCart} />
+          <CartItem
+            key={item.id}
+            {...item}
+            removeFromCart={removeFromCart}
+            increaseQuantity={increaseQuantity}
+            decreaseQuantity={decreaseQuantity}
+          />
         ))
       ) : (
         <li className="collection-item">Корзина пуста</li>
