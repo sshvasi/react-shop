@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { API_KEY, API_URL } from '../config';
 import Cart from './Cart';
+import CartList from './CartList';
 import GoodsList from './GoodsList';
 import Preloader from './Preloader';
 
@@ -9,6 +10,7 @@ const Shop = () => {
   const [order, setOrder] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isCartShow, setCartShow] = useState(false);
 
   const addToCart = item => {
     const itemIndex = order.findIndex(element => element.id === item.id);
@@ -23,6 +25,10 @@ const Shop = () => {
       });
       setOrder(newOrder);
     }
+  };
+
+  const handleCartShow = () => {
+    setCartShow(!isCartShow);
   };
 
   const fetchGoods = async () => {
@@ -48,7 +54,7 @@ const Shop = () => {
 
   return (
     <main className="container content">
-      <Cart quantity={order.length} />
+      <Cart quantity={order.length} onCartShow={handleCartShow} />
       {error ? (
         <h3>{error.message}</h3>
       ) : isLoading ? (
@@ -56,7 +62,11 @@ const Shop = () => {
       ) : (
         <GoodsList goods={goods} addToCart={addToCart} />
       )}
+      {isCartShow && <CartList order={order} onCartShow={handleCartShow} />}
     </main>
   );
 };
+
 export default Shop;
+
+Math.max();

@@ -36,6 +36,29 @@ nav {
   z-index: 5;
 }
 
+.cart-list {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  background-color: #fff;
+  width: 50rem;
+  max-width: 95%;
+}
+
+.cart-close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+.cart-delete {
+  cursor: pointer;
+}
+
 @media (min-width: 764px) {
   .cart {
     top: 5rem;
