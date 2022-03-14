@@ -1,8 +1,13 @@
-export const reducer = (state, { action, payload }) => {
-  switch (action) {
+export const reducer = (state, { type, payload }) => {
+  switch (type) {
+    case 'SET_GOODS':
+      return {
+        ...state,
+        goods: payload.goods || [],
+      };
     case 'ADD_TO_CART': {
       const itemIndex = state.order.findIndex(
-        element => element.id === payload.id
+        element => element.id === payload.item.id
       );
 
       let newOrder = null;
@@ -48,7 +53,10 @@ export const reducer = (state, { action, payload }) => {
       return { ...state, isCartShow: !state.isCartShow };
     }
     case 'CLOSE_ALERT':
-      return { ...state, alertName: '' };
+      return {
+        ...state,
+        alertName: '',
+      };
     default:
       return state;
   }

@@ -1,12 +1,10 @@
-const CartItem = ({
-  id,
-  name,
-  price,
-  quantity,
-  removeFromCart,
-  increaseQuantity,
-  decreaseQuantity,
-}) => {
+import { useContext } from 'react';
+import { ShopContext } from '../context';
+
+const CartItem = ({ id, name, price, quantity }) => {
+  const { removeFromCart, increaseQuantity, decreaseQuantity } =
+    useContext(ShopContext);
+
   return quantity ? (
     <li className="collection-item ">
       {name} x{quantity} = {price * quantity} руб.

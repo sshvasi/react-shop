@@ -1,4 +1,3 @@
-import { toHaveFormValues } from '@testing-library/jest-dom/dist/matchers';
 import React, { useReducer } from 'react';
 import { reducer } from './reducer';
 
@@ -15,6 +14,10 @@ const initialState = {
 
 export const ContextProvider = ({ children }) => {
   const [value, dispatch] = useReducer(reducer, initialState);
+
+  value.setGoods = goods => {
+    dispatch({ type: 'SET_GOODS', payload: { goods } });
+  };
 
   value.addToCart = item => {
     dispatch({ type: 'ADD_TO_CART', payload: { item } });
